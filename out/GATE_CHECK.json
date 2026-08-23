@@ -1,0 +1,86 @@
+{
+ "glb": "B10_B11_IFC_LOD0.glb",
+ "exists": true,
+ "import": "ok",
+ "objects": 47,
+ "meshes": 38,
+ "armatures": [
+  "B10_ARM"
+ ],
+ "skinned_meshes": 16,
+ "actions_in_file": [
+  "ANIM_B10_PEEL",
+  "ANIM_B11_FLAP_CLOSE",
+  "ANIM_B11_FLAP_OPEN"
+ ],
+ "anchors_in_file": [
+  "B10_ANCHOR_FLEXPOINT",
+  "B10_ANCHOR_PADS",
+  "B10_ANCHOR_STIFFENER",
+  "B11_ANCHOR_FLAP",
+  "B11_ANCHOR_PINS",
+  "B11_ANCHOR_SOLDER_L",
+  "B11_ANCHOR_SOLDER_R"
+ ],
+ "materials_in_file": [
+  "MAT_FPC_COPPER",
+  "MAT_GOLD_HARD",
+  "MAT_OXIDE_CRACK",
+  "MAT_POLYIMIDE_V2",
+  "MAT_SOLDER_ANCHOR",
+  "MAT_STIFFENER",
+  "MAT_ZIF_FLAP",
+  "MAT_ZIF_LCP"
+ ],
+ "bones_in_file": [
+  "B10_ARM_BONE_01",
+  "B10_ARM_BONE_02",
+  "B10_ARM_BONE_03",
+  "B10_ARM_BONE_04",
+  "B10_ARM_BONE_05",
+  "B10_ARM_BONE_06",
+  "B10_ARM_BONE_07",
+  "B10_ARM_BONE_08",
+  "B10_ARM_BONE_09",
+  "B10_ARM_BONE_10",
+  "neutral_bone"
+ ],
+ "results": {
+  "skin_binding": {
+   "max_travel_mm": 40.6508,
+   "verts_sampled": 2323,
+   "pass": true
+  },
+  "ANIM_B10_PEEL": {
+   "max_travel_mm": 0.0,
+   "verts_sampled": 2323,
+   "driven": "B10_ARM",
+   "frames": [
+    1,
+    112
+   ],
+   "pass": false
+  },
+  "ANIM_B11_FLAP_CLOSE": {
+   "max_travel_mm": 59.0571,
+   "verts_sampled": 2323,
+   "driven": "B10_ARM",
+   "frames": [
+    1,
+    30
+   ],
+   "pass": true
+  },
+  "ANIM_B11_FLAP_OPEN": {
+   "max_travel_mm": 59.0571,
+   "verts_sampled": 2323,
+   "driven": "B10_ARM",
+   "frames": [
+    1,
+    30
+   ],
+   "pass": true
+  }
+ },
+ "VERDICT": "PARTIAL"
+}

@@ -1,0 +1,43 @@
+{
+ "state": "done",
+ "queue": [
+  "build_b40_joints.py",
+  "build_b02_mainboard.py",
+  "build_b05_port.py",
+  "build_b10_b11_ifc.py",
+  "build_b28_hotair.py",
+  "build_b02_assembly.py",
+  "texture_pass.py"
+ ],
+ "current": null,
+ "results": [
+  {
+   "target": "build_b40_joints.py",
+   "state": "ok"
+  },
+  {
+   "target": "build_b02_mainboard.py",
+   "state": "ok"
+  },
+  {
+   "target": "build_b05_port.py",
+   "state": "ok"
+  },
+  {
+   "target": "build_b10_b11_ifc.py",
+   "state": "ok"
+  },
+  {
+   "target": "build_b28_hotair.py",
+   "state": "ok"
+  },
+  {
+   "target": "build_b02_assembly.py",
+   "state": "ok"
+  },
+  {
+   "target": "texture_pass.py",
+   "state": "ok"
+  }
+ ]
+}

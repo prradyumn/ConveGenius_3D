@@ -1,0 +1,346 @@
+{
+ "per_asset": {
+  "B05_PORT": {
+   "kb": 448.3,
+   "images_in_glb": 4,
+   "textures_in_glb": 11,
+   "materials_total": 12,
+   "materials_textured": 11,
+   "uv_modes": {
+    "box": 37,
+    "ribbon": 0,
+    "nozzle": 0,
+    "none": 3
+   },
+   "materials_mapped": [
+    "MAT_HOUSING_LCP",
+    "MAT_PIN_CC",
+    "MAT_PIN_DATA",
+    "MAT_PIN_GND",
+    "MAT_PIN_SBU",
+    "MAT_PIN_SS",
+    "MAT_PIN_VBUS",
+    "MAT_SOLDER_GOOD",
+    "MAT_STEEL_SEAM",
+    "MAT_STEEL_SHELL",
+    "MAT_TONGUE_LCP"
+   ],
+   "materials_left_flat": [
+    "MAT_CG_CARD_SIDE",
+    "MAT_CG_CARD_TOP",
+    "MAT_RUBBER"
+   ],
+   "renamed": [
+    "MAT_HOUSING_LCP_V2 -> MAT_HOUSING_LCP"
+   ],
+   "unhidden_for_runtime": [
+    "B05_GASKET",
+    "[coll]B05_STATE_BENT_PINS"
+   ],
+   "materials_deduped": [],
+   "untextured_after": [
+    "MAT_RUBBER"
+   ]
+  },
+  "B10_B11_IFC": {
+   "kb": 915.4,
+   "images_in_glb": 7,
+   "textures_in_glb": 9,
+   "materials_total": 9,
+   "materials_textured": 7,
+   "uv_modes": {
+    "box": 38,
+    "ribbon": 2,
+    "nozzle": 0,
+    "none": 6
+   },
+   "materials_mapped": [
+    "MAT_FPC_COPPER",
+    "MAT_FPC_COPPER.001",
+    "MAT_GOLD_HARD",
+    "MAT_GOLD_WORN",
+    "MAT_POLYIMIDE",
+    "MAT_POLYIMIDE_V2.001",
+    "MAT_SOLDER_ANCHOR",
+    "MAT_ZIF_FLAP",
+    "MAT_ZIF_LCP"
+   ],
+   "materials_left_flat": [
+    "MAT_CG_CARD_SIDE",
+    "MAT_CG_CARD_TOP",
+    "MAT_OXIDE_CRACK",
+    "MAT_STIFFENER"
+   ],
+   "renamed": [
+    "MAT_GOLD_WORN_V2 -> MAT_GOLD_WORN",
+    "MAT_POLYIMIDE_V2 -> MAT_POLYIMIDE"
+   ],
+   "unhidden_for_runtime": [
+    "B11_SOLDER_CRACK_L",
+    "[coll]B10_STATE_PADS_WORN",
+    "[coll]B10_STATE_TORN",
+    "[coll]glTF_not_exported"
+   ],
+   "materials_deduped": [
+    "MAT_FPC_COPPER.001 -> MAT_FPC_COPPER"
+   ],
+   "untextured_after": [
+    "MAT_STIFFENER",
+    "MAT_OXIDE_CRACK"
+   ]
+  },
+  "B40_JOINT": {
+   "kb": 1201.0,
+   "images_in_glb": 7,
+   "textures_in_glb": 8,
+   "materials_total": 7,
+   "materials_textured": 6,
+   "uv_modes": {
+    "box": 41,
+    "ribbon": 0,
+    "nozzle": 0,
+    "none": 5
+   },
+   "materials_mapped": [
+    "MAT_CMP_CERAMIC",
+    "MAT_GOLD_HARD",
+    "MAT_PCB_MASK",
+    "MAT_SOLDER_COLD",
+    "MAT_SOLDER_GOOD",
+    "MAT_TIN_CAP"
+   ],
+   "materials_left_flat": [
+    "MAT_CG_CARD_SIDE",
+    "MAT_CG_CARD_TOP",
+    "MAT_OXIDE_DARK"
+   ],
+   "renamed": [
+    "MAT_SOLDER_GOOD_V2 -> MAT_SOLDER_GOOD",
+    "MAT_SOLDER_COLD_V2 -> MAT_SOLDER_COLD"
+   ],
+   "unhidden_for_runtime": [
+    "B40_STATE_BRIDGED",
+    "B40_STATE_BRIDGED_BOARD",
+    "B40_STATE_BRIDGED_BRIDGE",
+    "B40_STATE_BRIDGED_CMP_BODY",
+    "B40_STATE_BRIDGED_CMP_CAP_L",
+    "B40_STATE_BRIDGED_CMP_CAP_R",
+    "B40_STATE_BRIDGED_FILLET_L",
+    "B40_STATE_BRIDGED_FILLET_R",
+    "B40_STATE_BRIDGED_PAD_L",
+    "B40_STATE_BRIDGED_PAD_R",
+    "B40_STATE_COLD",
+    "B40_STATE_COLD_BOARD",
+    "B40_STATE_COLD_CMP_BODY",
+    "B40_STATE_COLD_CMP_CAP_L",
+    "B40_STATE_COLD_CMP_CAP_R",
+    "B40_STATE_COLD_FILLET_L",
+    "B40_STATE_COLD_FILLET_R",
+    "B40_STATE_COLD_PAD_L",
+    "B40_STATE_COLD_PAD_R",
+    "B40_STATE_CRACKED",
+    "B40_STATE_CRACKED_BOARD",
+    "B40_STATE_CRACKED_CMP_BODY",
+    "B40_STATE_CRACKED_CMP_CAP_L",
+    "B40_STATE_CRACKED_CMP_CAP_R",
+    "B40_STATE_CRACKED_CRACK_L",
+    "B40_STATE_CRACKED_CRACK_R",
+    "B40_STATE_CRACKED_FILLET_L",
+    "B40_STATE_CRACKED_FILLET_R",
+    "B40_STATE_CRACKED_PAD_L",
+    "B40_STATE_CRACKED_PAD_R",
+    "B40_STATE_DRY",
+    "B40_STATE_DRY_BOARD",
+    "B40_STATE_DRY_CMP_BODY",
+    "B40_STATE_DRY_CMP_CAP_L",
+    "B40_STATE_DRY_CMP_CAP_R",
+    "B40_STATE_DRY_FILLET_L",
+    "B40_STATE_DRY_FILLET_R",
+    "B40_STATE_DRY_GAP",
+    "B40_STATE_DRY_PAD_L",
+    "B40_STATE_DRY_PAD_R"
+   ],
+   "materials_deduped": [],
+   "untextured_after": [
+    "MAT_OXIDE_DARK"
+   ]
+  },
+  "B02_MAINBOARD": {
+   "kb": 1326.1,
+   "images_in_glb": 7,
+   "textures_in_glb": 10,
+   "materials_total": 11,
+   "materials_textured": 8,
+   "uv_modes": {
+    "box": 378,
+    "ribbon": 0,
+    "nozzle": 0,
+    "none": 69
+   },
+   "materials_mapped": [
+    "MAT_COPPER_BARE",
+    "MAT_FR4_CORE",
+    "MAT_GOLD_HARD",
+    "MAT_OLD_SOLDER",
+    "MAT_PASSIVE_CERAMIC",
+    "MAT_PCB_MASK",
+    "MAT_SHIELD_NICKEL",
+    "MAT_SOLDER_GOOD",
+    "MAT_TRACE_HIGHLIGHT"
+   ],
+   "materials_left_flat": [
+    "MAT_CG_CARD_SIDE",
+    "MAT_CG_CARD_TOP",
+    "MAT_PASSIVE_TAN",
+    "MAT_SILK_V2",
+    "MAT_ZONE_TINT"
+   ],
+   "renamed": [
+    "MAT_PCB_MASK_V2 -> MAT_PCB_MASK",
+    "MAT_FR4_CORE_V2 -> MAT_FR4_CORE"
+   ],
+   "unhidden_for_runtime": [
+    "B02_SHIELD_PMIC",
+    "B02_ZONE_BATTCONN",
+    "B02_ZONE_IFC",
+    "B02_ZONE_PMIC",
+    "B02_ZONE_PORT",
+    "[coll]B02_STATE_DUSTY",
+    "[coll]B02_STATE_PAD_BARE"
+   ],
+   "materials_deduped": [],
+   "untextured_after": [
+    "MAT_PASSIVE_TAN",
+    "MAT_SHIELD_NICKEL",
+    "MAT_ZONE_TINT"
+   ]
+  },
+  "B28_HOTAIR": {
+   "kb": 262.3,
+   "images_in_glb": 3,
+   "textures_in_glb": 5,
+   "materials_total": 10,
+   "materials_textured": 4,
+   "uv_modes": {
+    "box": 20,
+    "ribbon": 0,
+    "nozzle": 5,
+    "none": 10
+   },
+   "materials_mapped": [
+    "MAT_B28_AIRFLOW (emissive+BLEND)",
+    "MAT_ESD_BODY",
+    "MAT_ESD_DARK",
+    "MAT_HANDGRIP",
+    "MAT_NOZZLE_HOT"
+   ],
+   "materials_left_flat": [
+    "MAT_B28_AIRFLOW",
+    "MAT_CG_CARD_SIDE",
+    "MAT_CG_CARD_TOP",
+    "MAT_HOSE",
+    "MAT_KNOB",
+    "MAT_KNOB_RING",
+    "MAT_LCD_GLASS",
+    "MAT_NOZZLE_GLOW",
+    "MAT_STANDOFF"
+   ],
+   "renamed": [],
+   "unhidden_for_runtime": [
+    "B28_NOZZLE_3mm",
+    "B28_NOZZLE_8mm",
+    "B28_STANDOFF_5MM"
+   ],
+   "materials_deduped": [],
+   "untextured_after": [
+    "MAT_LCD_GLASS",
+    "MAT_B28_AIRFLOW",
+    "MAT_NOZZLE_GLOW",
+    "MAT_STANDOFF",
+    "MAT_KNOB",
+    "MAT_KNOB_RING"
+   ]
+  },
+  "B02_ASSEMBLY": {
+   "kb": 1853.6,
+   "images_in_glb": 11,
+   "textures_in_glb": 27,
+   "materials_total": 27,
+   "materials_textured": 23,
+   "uv_modes": {
+    "box": 433,
+    "ribbon": 1,
+    "nozzle": 0,
+    "none": 70
+   },
+   "materials_mapped": [
+    "MAT_COPPER_BARE",
+    "MAT_FPC_COPPER",
+    "MAT_FR4_CORE",
+    "MAT_GOLD_HARD",
+    "MAT_GOLD_HARD.001",
+    "MAT_HOUSING_LCP",
+    "MAT_OLD_SOLDER",
+    "MAT_PASSIVE_CERAMIC",
+    "MAT_PCB_MASK",
+    "MAT_PIN_CC",
+    "MAT_PIN_DATA",
+    "MAT_PIN_GND",
+    "MAT_PIN_SBU",
+    "MAT_PIN_SS",
+    "MAT_PIN_VBUS",
+    "MAT_POLYIMIDE",
+    "MAT_SHIELD_NICKEL",
+    "MAT_SOLDER_ANCHOR",
+    "MAT_SOLDER_GOOD",
+    "MAT_SOLDER_GOOD.001",
+    "MAT_STEEL_SEAM",
+    "MAT_STEEL_SHELL",
+    "MAT_TONGUE_LCP",
+    "MAT_TRACE_HIGHLIGHT",
+    "MAT_ZIF_FLAP",
+    "MAT_ZIF_LCP"
+   ],
+   "materials_left_flat": [
+    "MAT_CG_CARD_SIDE",
+    "MAT_CG_CARD_SIDE.001",
+    "MAT_CG_CARD_TOP",
+    "MAT_CG_CARD_TOP.001",
+    "MAT_OXIDE_CRACK",
+    "MAT_PASSIVE_TAN",
+    "MAT_SILK_V2",
+    "MAT_ZONE_TINT"
+   ],
+   "renamed": [
+    "MAT_HOUSING_LCP_V2 -> MAT_HOUSING_LCP",
+    "MAT_PCB_MASK_V2 -> MAT_PCB_MASK",
+    "MAT_POLYIMIDE_ASM -> MAT_POLYIMIDE",
+    "MAT_FPC_COPPER_ASM -> MAT_FPC_COPPER",
+    "MAT_FR4_CORE_V2 -> MAT_FR4_CORE"
+   ],
+   "unhidden_for_runtime": [
+    "B02_SHIELD_PMIC",
+    "B02_ZONE_BATTCONN",
+    "B02_ZONE_IFC",
+    "B02_ZONE_PMIC",
+    "B02_ZONE_PORT",
+    "[coll]B02_STATE_DUSTY",
+    "[coll]B02_STATE_PAD_BARE"
+   ],
+   "materials_deduped": [
+    "MAT_CG_CARD_SIDE.001 -> MAT_CG_CARD_SIDE",
+    "MAT_CG_CARD_TOP.001 -> MAT_CG_CARD_TOP",
+    "MAT_GOLD_HARD.001 -> MAT_GOLD_HARD",
+    "MAT_SOLDER_GOOD.001 -> MAT_SOLDER_GOOD"
+   ],
+   "untextured_after": [
+    "MAT_OXIDE_CRACK",
+    "MAT_PASSIVE_TAN",
+    "MAT_SHIELD_NICKEL",
+    "MAT_ZONE_TINT"
+   ]
+  }
+ },
+ "total_kb": 6006.7,
+ "pct_of_25mb": 23.464
+}

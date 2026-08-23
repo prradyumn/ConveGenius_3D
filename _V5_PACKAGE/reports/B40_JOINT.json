@@ -1,0 +1,72 @@
+{
+ "asset": "B40_JOINT",
+ "states": [
+  "GOOD",
+  "COLD",
+  "CRACKED",
+  "BRIDGED",
+  "DRY"
+ ],
+ "tris_per_state": {
+  "GOOD": 1168,
+  "COLD": 1168,
+  "CRACKED": 1384,
+  "BRIDGED": 1552,
+  "DRY": 1276
+ },
+ "tri_budget_per_state": 3000,
+ "within_budget": true,
+ "glb_kb": 10.5,
+ "exposure": -2.274,
+ "method": "real meniscus geometry - concave ellipse centred outside the solder for GOOD, convex ellipse centred in the corner for COLD. Not a roughness swap.",
+ "dims_used": {
+  "component": "0603 chip, 1.60 x 0.80 x 0.45 mm",
+  "pad_mm": [
+   0.95,
+   0.9,
+   0.035
+  ],
+  "pad_centres_mm": 1.56,
+  "crack_gap_mm": 0.045
+ },
+ "renders": [
+  "B40_shot1_good",
+  "B40_shot2_cold",
+  "B40_shot3_cracked",
+  "B40_shot4_bridged",
+  "B40_shot5_dry",
+  "B40_shot6_row"
+ ],
+ "log": [
+  "scene ready | engine BLENDER_EEVEE | units mm",
+  "state GOOD     objects 8",
+  "state COLD     objects 8",
+  "state CRACKED  objects 10",
+  "state BRIDGED  objects 9",
+  "state DRY      objects 9",
+  "lighting v2: 4 lights, k=30, scale=2.3mm",
+  "studio world gradient, strength 0.95",
+  "reflector cards: 2 (camera-invisible)",
+  "look = None",
+  "framed B40_cam dist 10.95 rad 1.36 margin 1.28",
+  "rendered _expose_probe.png",
+  "auto_expose pass 1: luma 0.5090 -> -1.21 stops",
+  "rendered _expose_probe.png",
+  "auto_expose pass 2: luma 0.3589 -> -0.71 stops",
+  "rendered _expose_probe.png",
+  "auto_expose pass 3: luma 0.2820 -> -0.36 stops",
+  "rendered _expose_probe.png",
+  "auto_expose pass 4: luma 0.2473 -> -0.17 stops",
+  "auto_expose settled at exposure -2.27",
+  "saved B40_JOINT.blend",
+  "rendered B40_shot1_good.png",
+  "rendered B40_shot2_cold.png",
+  "rendered B40_shot3_cracked.png",
+  "rendered B40_shot4_bridged.png",
+  "rendered B40_shot5_dry.png",
+  "framed B40_rowcam dist 52.61 rad 9.93 margin 1.06",
+  "rendered B40_shot6_row.png",
+  "glb B40_JOINT_LOD0.glb 10.5 KB (apply=True, 49 objects)",
+  "GLB VERIFY: 9 nodes, 8 meshes, 1168 tris, 0 anchors, anims=[]"
+ ]
+}

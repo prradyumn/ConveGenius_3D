@@ -1,0 +1,7 @@
+{
+ "blender": "5.2.0 LTS",
+ "py": "3.13.13",
+ "bg": true,
+ "plat": "Windows-11-10.0.26200-SP0",
+ "gltf": true
+}
