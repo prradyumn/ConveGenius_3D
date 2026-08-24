@@ -7,3 +7,5 @@ __pycache__/
 *.py[cod]
 *.log
 authoring/tools/glb_inspect.json
+public/assets/glb/original/
+public/assets/glb/optimized/

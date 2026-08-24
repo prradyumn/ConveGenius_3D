@@ -5,6 +5,7 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 import {
   CAMERA_NEAR, CAMERA_FAR, CAMERA_FOV, MAX_PIXEL_RATIO, BG_TOP, BG_BOTTOM,
 } from './config.js';
+import { createGroundShadow } from './glow.js';
 
 /**
  * Renderer / camera / lights / environment.
@@ -67,7 +68,14 @@ export function createStage(container) {
 
   addLights(scene);
 
-  return { renderer, labelRenderer, scene, camera, controls };
+  // A soft dark ellipse under the part - the only grounding cue in a scene
+  // with no floor. See glow.js.
+  const groundShadow = createGroundShadow();
+  scene.add(groundShadow);
+
+  return {
+    renderer, labelRenderer, scene, camera, controls, groundShadow,
+  };
 }
 
 /** One large key + fill + rim. The soft reflection running along a metal edge

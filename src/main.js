@@ -15,6 +15,7 @@ import { InstancedFamilies } from './core/instancing.js';
 import { ProcedureRunner } from './procedures/engine.js';
 import { PROCEDURES, TOOLS } from './procedures/fixes.js';
 import { frameObject, updateDepthRange } from './core/framing.js';
+import { fitGroundShadow } from './core/glow.js';
 import { runContractChecks } from './ui/checks.js';
 import { mountStatePanel } from './ui/statePanel.js';
 import { mountQuiz } from './ui/quiz.js';
@@ -46,7 +47,9 @@ const app = {
 };
 
 const stage = createStage(stageEl);
-const { renderer, labelRenderer, scene, camera, controls } = stage;
+const {
+  renderer, labelRenderer, scene, camera, controls, groundShadow,
+} = stage;
 attachResize(stageEl, stage);
 
 // The checks panel measures framing against the live camera.
@@ -185,15 +188,31 @@ async function loadAssetByKey(key) {
   scene.add(app.root);
   app.root.updateMatrixWorld(true);
 
-  // Cached for the adaptive depth range (see updateDepthRange).
+  // The framed "part": same object the opening view and explode-reframe fit
+  // to. Some assets (e.g. B05_PORT) carry a small disconnected extra prop
+  // alongside the main body - fitting the ground shadow to the whole scene
+  // root instead of this pulled the shadow wildly off-centre and oversized.
+  const target = def.root ? app.root.getObjectByName(def.root) ?? app.root : app.root;
+
+  // Cached for the adaptive depth range (see updateDepthRange). This one
+  // intentionally covers the WHOLE root, extra props included, so nothing
+  // clips through the far plane.
   app.sceneRadius = new THREE.Box3().setFromObject(app.root)
     .getBoundingSphere(new THREE.Sphere()).radius;
+  fitGroundShadow(groundShadow, new THREE.Box3().setFromObject(target));
 
   app.registry = new Registry(app.manifest, key, app.root);
   // Hide all non-default states BEFORE the first frame, or the five B40 joints
   // render on top of each other.
   app.states = new StateMachine(app.root, app.manifest, key);
-  app.anim = new AnimController(app.root, gltf.animations ?? []);
+  app.anim = new AnimController(app.root, gltf.animations ?? [], scene, app.sceneRadius);
+  // An EXPLODE clip carries parts well outside the overview framing solved at
+  // load time - without this the camera stays put and pieces fly off-screen.
+  app.anim.onFinish((name) => {
+    if (!name || !name.includes('EXPLODE')) return;
+    app.cancelFly?.();
+    app.cancelFly = frameObject(camera, controls, target, MARGIN_OVERVIEW * 1.3);
+  });
   app.labels.setRoot(app.root);
 
   // Occlusion testing is a raycast per label per frame. On the 500-node assets
@@ -212,7 +231,6 @@ async function loadAssetByKey(key) {
   requestAnimationFrame(() => requestAnimationFrame(refreshPerf));
 
   // Overview framing, then let go.
-  const target = def.root ? app.root.getObjectByName(def.root) ?? app.root : app.root;
   camera.fov = CAMERA_FOV;
   camera.updateProjectionMatrix();
   app.magnified = false;

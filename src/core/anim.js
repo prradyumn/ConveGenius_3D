@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { findMaterials } from './materials.js';
+import { createGlowSprite, setGlow } from './glow.js';
 
 /**
  * Clip playback.
@@ -11,8 +12,9 @@ import { findMaterials } from './materials.js';
  *  2. Per-node visibility (see states.js).
  */
 export class AnimController {
-  constructor(root, clips) {
+  constructor(root, clips, scene = null, sceneRadius = 10) {
     this.root = root;
+    this.scene = scene;
     this.mixer = new THREE.AnimationMixer(root);
     this.actions = new Map();
     this.clipInfo = new Map();
@@ -50,6 +52,24 @@ export class AnimController {
     this.solderMeshes = ['B11_SOLDER_L', 'B11_SOLDER_R']
       .map((n) => root.getObjectByName(n))
       .filter((o) => o && o.morphTargetInfluences);
+
+    // Additive halo sprites: a cheap stand-in for bloom on the two runtime
+    // hotspots. See glow.js for why this beats a post-processing pass here.
+    this.nozzleTip = root.getObjectByName('B28_ANCHOR_TIP');
+    this.nozzleGlow = (scene && this.nozzleMats.length && this.nozzleTip)
+      ? createGlowSprite(0xff8a3c) : null;
+    this.solderGlows = (scene && this.solderMeshes.length)
+      ? this.solderMeshes.map(() => createGlowSprite(0xff8a3c)) : [];
+    if (this.nozzleGlow) scene.add(this.nozzleGlow);
+    for (const s of this.solderGlows) scene.add(s);
+    this._nozzleWeight = 0;
+    this._meltWeight = 0;
+    this._v = new THREE.Vector3();
+    // Asset scale varies wildly across this app - the hot-air station's own
+    // radius is ~30x the USB-C port's. A fixed sprite size calibrated for one
+    // is invisible or absurd on the other, so scale off the loaded asset.
+    this._nozzleGlowScale = sceneRadius * 0.13;
+    this._solderGlowScale = sceneRadius * 0.07;
   }
 
   onFinish(fn) { this._onFinish = fn; return this; }
@@ -123,6 +143,7 @@ export class AnimController {
       m.emissiveIntensity = THREE.MathUtils.lerp(i, 3.2, w);
       m.needsUpdate = true;
     }
+    this._nozzleWeight = w;
     return w;
   }
 
@@ -137,6 +158,19 @@ export class AnimController {
         m.emissiveIntensity = THREE.MathUtils.lerp(0, 2.5, w);
       }
       m.needsUpdate = true;
+    }
+    this._meltWeight = w;
+  }
+
+  /** Position and fade the halo sprites from the current heat/melt weights. */
+  _updateGlowSprites() {
+    if (this.nozzleGlow) {
+      this.nozzleTip.getWorldPosition(this._v);
+      setGlow(this.nozzleGlow, this._v, this._nozzleWeight, this._nozzleGlowScale);
+    }
+    for (let i = 0; i < this.solderGlows.length; i++) {
+      this.solderMeshes[i].getWorldPosition(this._v);
+      setGlow(this.solderGlows[i], this._v, this._meltWeight, this._solderGlowScale);
     }
   }
 
@@ -155,10 +189,18 @@ export class AnimController {
     if (this.playing === 'ANIM_B11_SOLDER_MELT' || this.solderMeshes.length) {
       this._syncRuntimeGlow();
     }
+    if (this.nozzleGlow || this.solderGlows.length) this._updateGlowSprites();
   }
 
   dispose() {
     this.stopAll();
     this.mixer.uncacheRoot(this.root);
+    if (this.scene) {
+      if (this.nozzleGlow) this.scene.remove(this.nozzleGlow);
+      for (const s of this.solderGlows) this.scene.remove(s);
+    }
+    this.nozzleGlow?.material.map?.dispose();
+    this.nozzleGlow?.material.dispose();
+    for (const s of this.solderGlows) { s.material.map?.dispose(); s.material.dispose(); }
   }
 }

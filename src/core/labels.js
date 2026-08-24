@@ -36,16 +36,22 @@ export class LabelLayer {
   add(entry, anchorPos, { variant = 'default', showNote = false } = {}) {
     this.remove(entry.name);
 
+    // The CSS2DObject element (`el`) is a bare positional anchor: CSS2DRenderer
+    // fully overwrites its `transform` every frame, so it cannot also carry our
+    // own declutter offset. `inner` holds the actual visible box and is where
+    // update() applies a corrective translateY when callouts would overlap.
     const el = document.createElement('div');
-    el.className = 'callout callout--' + variant;
-    el.innerHTML =
+    const inner = document.createElement('div');
+    inner.className = 'callout callout--' + variant;
+    inner.innerHTML =
       '<div class="callout__title"></div>' +
       (showNote && entry.note ? '<div class="callout__note"></div>' : '') +
       (entry.signal ? '<div class="callout__chip"></div>' : '');
     // textContent, never innerHTML, for the manifest strings.
-    el.querySelector('.callout__title').textContent = entry.label;
-    if (showNote && entry.note) el.querySelector('.callout__note').textContent = entry.note;
-    if (entry.signal) el.querySelector('.callout__chip').textContent = entry.signal;
+    inner.querySelector('.callout__title').textContent = entry.label;
+    if (showNote && entry.note) inner.querySelector('.callout__note').textContent = entry.note;
+    if (entry.signal) inner.querySelector('.callout__chip').textContent = entry.signal;
+    el.appendChild(inner);
 
     const css2d = new CSS2DObject(el);
     css2d.position.copy(anchorPos);
@@ -57,8 +63,10 @@ export class LabelLayer {
     line.setAttribute('class', 'leader leader--' + variant);
     this.svg.appendChild(line);
 
-    this.labels.set(entry.name, { entry, css2d, el, anchorWorld: anchorPos.clone(), line });
-    return el;
+    this.labels.set(entry.name, {
+      entry, css2d, el, inner, anchorWorld: anchorPos.clone(), line, declutterY: 0,
+    });
+    return inner;
   }
 
   remove(name) {
@@ -92,6 +100,7 @@ export class LabelLayer {
     }
 
     const camPos = this.camera.position;
+    const visible = [];
 
     for (const rec of this.labels.values()) {
       const p = this._v.copy(rec.anchorWorld).project(this.camera);
@@ -111,21 +120,54 @@ export class LabelLayer {
       }
 
       const hidden = offScreen || occluded;
-      rec.el.classList.toggle('is-hidden', hidden);
+      rec.inner.classList.toggle('is-hidden', hidden);
       rec.line.style.display = hidden ? 'none' : '';
+      // Undo any previous declutter shift before re-measuring: CSS2DRenderer
+      // repositions `el` fresh every frame, so `inner`'s natural (unshifted)
+      // box is what we want to test for overlaps below.
+      rec.inner.style.transform = '';
       if (hidden) continue;
 
-      // Anchor point in CSS pixels.
       const ax = (p.x * 0.5 + 0.5) * rect.width;
       const ay = (-p.y * 0.5 + 0.5) * rect.height;
+      visible.push({ rec, ax, ay });
+    }
 
-      // CSS2DRenderer has already placed the box; read where it landed and
-      // draw the leader to its nearest bottom corner.
-      const box = rec.el.getBoundingClientRect();
-      const bx = box.left - rect.left;
-      const by = box.top - rect.top;
-      const attachX = ax < bx + box.width / 2 ? bx + 6 : bx + box.width - 6;
-      const attachY = by + box.height;
+    // Declutter: several anchors close together in screen space (e.g. a
+    // cluster of fault pins after an explode) otherwise land their callouts
+    // exactly on top of each other, illegible. Greedily stack collisions
+    // downward instead of leaving them to overlap. Cheap: at most a handful
+    // of labels are ever visible at once (occlusion caps the rest).
+    visible.sort((a, b) => a.ay - b.ay);
+    const placed = [];
+    for (const { rec, ax, ay } of visible) {
+      const natural = rec.inner.getBoundingClientRect();
+      const box = {
+        left: natural.left - rect.left,
+        top: natural.top - rect.top,
+        right: natural.right - rect.left,
+        bottom: natural.bottom - rect.top,
+      };
+      const height = box.bottom - box.top;
+      const step = height + 6;
+      let dy = 0;
+      let guard = 0;
+      while (
+        placed.some((p) => box.left < p.right && box.right > p.left
+          && box.top + dy < p.bottom && box.bottom + dy > p.top)
+        && guard++ < 16
+      ) {
+        dy += step;
+      }
+      if (dy !== 0) rec.inner.style.transform = `translateY(${dy}px)`;
+      placed.push({ left: box.left, right: box.right, top: box.top + dy, bottom: box.bottom + dy });
+
+      // Draw the leader to the callout's actual (post-shift) nearest corner.
+      const bx = box.left;
+      const by = box.top + dy;
+      const bw = box.right - box.left;
+      const attachX = ax < bx + bw / 2 ? bx + 6 : bx + bw - 6;
+      const attachY = by + height;
 
       rec.line.setAttribute('x1', ax.toFixed(1));
       rec.line.setAttribute('y1', ay.toFixed(1));

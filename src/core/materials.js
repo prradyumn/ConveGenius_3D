@@ -76,11 +76,13 @@ export class Highlighter {
     }
   }
 
-  // Kept deliberately low. An emissive of ~1.0 on a large part like the shell
-  // blows out the whole surface and destroys the metal read, which is the one
-  // thing that makes shape legible at this scale.
-  select(object3d) { this.add(object3d, SELECT_COLOR, 0.32); }
-  hover(object3d) { this.add(object3d, HOVER_COLOR, 0.14); }
+  // Kept deliberately low. Metal has almost no diffuse albedo to compete
+  // against, so even a "low" emissive reads as a flat colour wash rather than
+  // a highlight - 0.32 turned the steel shell into cyan plastic, and 0.16
+  // still read as light-blue plastic. 0.09 is the lowest that still reads
+  // clearly as "selected" next to an unselected part in the same shot.
+  select(object3d) { this.add(object3d, SELECT_COLOR, 0.09); }
+  hover(object3d) { this.add(object3d, HOVER_COLOR, 0.05); }
 
   /**
    * Group highlight by SHARED material - deliberately lights every pin that
