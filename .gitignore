@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.vercel/
+.DS_Store
+.vscode/
+__pycache__/
+*.py[cod]
+*.log
+authoring/tools/glb_inspect.json
